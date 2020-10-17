@@ -8,13 +8,18 @@ const theme = {
   primary,
   secondary,
   buttonColor: "#D22F27",
+  textColor: "#B3B3B3",
   inactive: inactive,
   categories: "#039be5",
   favorites: "#8e24aa",
   fontFamily,
   fontFamilyBold,
   headerStyle: {
-    backgroundColor: "rgba(0,0,0, 0.5)"
+    backgroundColor: "black",
+    shadowRadius: 0,
+    shadowOffset: {
+      height: 0
+    }
   },
   headerTintColor: secondary,
   headerTitleStyle: {

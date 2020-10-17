@@ -3,11 +3,11 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import Theme from "../constants/theme";
 
-import LaughsScreen from '../screens/LaughsScreen';
+import LaughsScreen from "../screens/LaughsScreen";
 
 const Stack = createStackNavigator();
 
-const screenOptions = {
+const screenOptions: any = {
   headerStyle: Theme.headerStyle,
   headerTintColor: Theme.headerTintColor,
   headerTitleStyle: Theme.headerTitleStyle,
@@ -17,7 +17,7 @@ const screenOptions = {
 
 type LaughsProps = {};
 
-const Laughs: FC<LaughsProps>  = () => {
+const Laughs: FC<LaughsProps> = () => {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen name="Laughs" component={LaughsScreen} />

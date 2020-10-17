@@ -1,14 +1,26 @@
-import React, { FC, useState } from "react";
-import { StyleSheet, View, ScrollView, Dimensions, NativeSyntheticEvent, NativeScrollEvent, ViewStyle } from "react-native";
+import React, { FC, ReactNode, useState } from "react";
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  Dimensions,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
+  ViewStyle
+} from "react-native";
 import Dots from "./Dots";
 
 type PagesProps = {
-  renderItems: Function;
+  renderItems: () => Array<ReactNode>;
   height?: number | string;
   guideStyle?: ViewStyle;
-}
+};
 
-const Pages: FC<PagesProps> = ({ renderItems, height="100%", guideStyle }) => {
+const Pages: FC<PagesProps> = ({
+  renderItems,
+  height = "100%",
+  guideStyle
+}) => {
   const [page, setPage] = useState(0);
   const els = renderItems();
   const pageCount = els.length;
@@ -18,8 +30,8 @@ const Pages: FC<PagesProps> = ({ renderItems, height="100%", guideStyle }) => {
     const offsetX = info.contentOffset.x;
     const itemW = info.layoutMeasurement.width;
     const totalW = info.contentSize.width;
-    const total = Math.floor(totalW/itemW);
-    const current = Math.floor((offsetX/totalW)*total);
+    const total = Math.floor(totalW / itemW);
+    const current = Math.floor((offsetX / totalW) * total);
     setPage(current);
   };
 
@@ -27,7 +39,10 @@ const Pages: FC<PagesProps> = ({ renderItems, height="100%", guideStyle }) => {
     <View style={{ ...styles.view, height }}>
       <ScrollView
         horizontal={true}
-        contentContainerStyle={{...styles.scroller, width: Dimensions.get("window").width*pageCount }}
+        contentContainerStyle={{
+          ...styles.scroller,
+          width: Dimensions.get("window").width * pageCount
+        }}
         showsHorizontalScrollIndicator={false}
         scrollEventThrottle={0}
         decelerationRate="fast"
@@ -38,7 +53,7 @@ const Pages: FC<PagesProps> = ({ renderItems, height="100%", guideStyle }) => {
       </ScrollView>
       <Dots count={pageCount} current={page} style={guideStyle} />
     </View>
-  )
+  );
 };
 
 const styles = StyleSheet.create({
@@ -48,7 +63,7 @@ const styles = StyleSheet.create({
   scroller: {
     position: "relative",
     width: Dimensions.get("window").width,
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     zIndex: 3
   }
 });

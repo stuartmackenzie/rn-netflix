@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import Theme from "../constants/theme";
 
-import SearchScreen from '../screens/LaughsScreen';
+import SearchScreen from "../screens/SearchScreen";
 
 const Stack = createStackNavigator();
 
@@ -17,10 +17,10 @@ const screenOptions = {
 
 type SearchProps = {};
 
-const Search: FC<SearchProps>  = () => {
+const Search: FC<SearchProps> = () => {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
-      <Stack.Screen name="Laugh" component={SearchScreen} />
+      <Stack.Screen name="Search" component={SearchScreen} />
     </Stack.Navigator>
   );
 };

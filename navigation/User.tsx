@@ -3,14 +3,14 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
-import isAndroid from '../utils/isAndroid';
+import isAndroid from "../utils/isAndroid";
 import Theme from "../constants/theme";
 
-import Home from './Home';
-import ComingSoon from './ComingSoon';
-import Laughs from './Laughs';
-import Search from './Search';
-import Downloads from './Downloads';
+import Home from "./Home";
+import ComingSoon from "./ComingSoon";
+import Laughs from "./Laughs";
+import Search from "./Search";
+import Downloads from "./Downloads";
 
 const Tab: any = isAndroid()
   ? createMaterialBottomTabNavigator()
@@ -57,8 +57,16 @@ const User: FC<UserProps> = () => {
       shifting={true}
     >
       <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Soon" component={ComingSoon} />
-      <Tab.Screen name="Laughs" component={Laughs} />
+      <Tab.Screen
+        name="Soon"
+        component={ComingSoon}
+        options={{ tabBarBadge: "3", title: "Coming Soon" }}
+      />
+      <Tab.Screen
+        name="Laughs"
+        component={Laughs}
+        options={{ title: "Fast Laughs" }}
+      />
       <Tab.Screen name="Search" component={Search} />
       <Tab.Screen name="Downloads" component={Downloads} />
     </Tab.Navigator>

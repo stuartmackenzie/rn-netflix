@@ -10,11 +10,14 @@ import {
 } from "react-native";
 import Theme from "../../constants/theme";
 import Text from "./Text";
+import IonIcon from "./IonIcon";
 
 type ButtonProps = {
   style?: ViewStyle;
   buttonStyle?: ViewStyle;
   textStyle?: TextStyle;
+  icon?: string;
+  color?: string;
   onPress?: ((event: GestureResponderEvent) => void) | undefined;
 };
 
@@ -22,13 +25,20 @@ const UIButton: FC<ButtonProps> = ({
   style,
   buttonStyle,
   textStyle,
+  icon,
+  color,
   children,
   onPress
 }) => {
+  let iconEl = null;
+  if (icon) {
+    iconEl = <IonIcon name={icon} color={color} />;
+  }
   return (
     <View style={{ ...styles.view, ...style }}>
       <TouchableOpacity activeOpacity={0.6} onPress={onPress} delayPressIn={0}>
         <View style={{ ...styles.button, ...buttonStyle }}>
+          {iconEl}
           <Text style={{ ...styles.text, ...textStyle }}>{children}</Text>
         </View>
       </TouchableOpacity>
