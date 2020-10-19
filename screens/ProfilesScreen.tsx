@@ -2,7 +2,7 @@ import React, { FC, useLayoutEffect } from "react";
 import { StyleSheet, View, FlatList } from "react-native";
 import { useHeaderHeight } from "@react-navigation/stack";
 
-import items from "../data/profiles";
+import data from "../data/profiles";
 import { Profile, ProfileParams } from "../models/user";
 
 import HeaderMenuButton from "../components/HeaderMenuButton";
@@ -11,15 +11,16 @@ import HeaderEditButtons from "../components/HeaderEditButtons";
 import ProfileItem from "../components/ProfileItem";
 import HeaderGradient from "../components/HeaderGradient";
 
-const models: Array<Profile> = items.map(
-  (item: ProfileParams) => new Profile(item)
-);
-
 type ProfilesScreenProps = {
   navigation: any;
 };
 
 const ProfilesScreen: FC<ProfilesScreenProps> = ({ navigation }) => {
+  const items = data.items;
+  const profiles: Array<Profile> = items.map(
+    (item: ProfileParams) => new Profile(item)
+  );
+
   const editHandler = () => {
     console.log("Edit");
   };
@@ -41,7 +42,7 @@ const ProfilesScreen: FC<ProfilesScreenProps> = ({ navigation }) => {
   };
 
   const renderItem = (itemData) => (
-    <ProfileItem {...itemData.item} onPress={itemHandler} />
+    <ProfileItem profile={itemData.item} width={100} onPress={itemHandler} />
   );
 
   return (
@@ -50,7 +51,7 @@ const ProfilesScreen: FC<ProfilesScreenProps> = ({ navigation }) => {
       <View style={{ ...styles.content }}>
         <FlatList
           keyExtractor={(item: Profile) => item.id.toString()}
-          data={models}
+          data={profiles}
           contentContainerStyle={{
             ...styles.list,
             marginTop: useHeaderHeight() + 80
@@ -77,10 +78,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 80,
     alignItems: "center"
-  },
-  text: {
-    fontFamily: "Cabin-Regular",
-    color: "#FFF"
   }
 });
 

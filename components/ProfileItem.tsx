@@ -3,23 +3,41 @@ import {
   StyleSheet,
   View,
   Image,
-  ImageProps,
-  TouchableOpacity
+  TouchableOpacity,
+  TextStyle
 } from "react-native";
+
 import Theme from "../constants/theme";
+import { Profile } from "../models/user";
 import Text from "./UI/Text";
 
 const defaultAvatar = require("../assets/user/avatar_blue.png");
 
 type ProfileItemProps = {
-  id: number;
-  name: string;
-  image?: ImageProps | Readonly<ImageProps>;
+  profile: Profile;
+  selId?: number | undefined;
+  width?: number;
+  textStyle?: TextStyle;
   onPress?: (id: number) => void;
 };
 
-const ProfileItem: FC<ProfileItemProps> = ({ id, name, image, onPress }) => {
+const ProfileItem: FC<ProfileItemProps> = ({
+  profile,
+  selId,
+  width = 100,
+  textStyle,
+  onPress
+}) => {
+  let { id, name, image } = profile;
   image = image || defaultAvatar;
+
+  const imageStyle =
+    selId && selId === id
+      ? { ...styles.imageContainer, ...styles.selImageContainer }
+      : styles.imageContainer;
+
+  const textFamily =
+    selId && selId === id ? Theme.fontFamilyBold : Theme.fontFamily;
 
   return (
     <TouchableOpacity
@@ -28,11 +46,16 @@ const ProfileItem: FC<ProfileItemProps> = ({ id, name, image, onPress }) => {
       onPress={() => onPress(id)}
       delayPressIn={0}
     >
-      <View style={styles.imageContainer}>
-        <Image style={styles.image} source={image} />
+      <View style={imageStyle}>
+        <Image
+          style={{ ...styles.image, width: width, height: width }}
+          source={image}
+        />
       </View>
       <View style={styles.nameContainer}>
-        <Text style={styles.name}>{name}</Text>
+        <Text style={{ ...styles.name, ...textStyle, fontFamily: textFamily }}>
+          {name}
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -43,7 +66,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginVertical: 10
   },
-  imageContainer: {},
+  imageContainer: {
+    borderWidth: 2,
+    borderColor: "transparent"
+  },
+  selImageContainer: {
+    borderColor: Theme.secondary
+  },
   image: {
     width: 100,
     height: 100

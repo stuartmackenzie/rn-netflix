@@ -18,6 +18,7 @@ type ButtonProps = {
   textStyle?: TextStyle;
   icon?: string;
   color?: string;
+  size?: number;
   onPress?: ((event: GestureResponderEvent) => void) | undefined;
 };
 
@@ -27,12 +28,13 @@ const UIButton: FC<ButtonProps> = ({
   textStyle,
   icon,
   color,
+  size,
   children,
   onPress
 }) => {
   let iconEl = null;
   if (icon) {
-    iconEl = <IonIcon name={icon} color={color} />;
+    iconEl = <IonIcon name={icon} color={color} size={size} />;
   }
   return (
     <View style={{ ...styles.view, ...style }}>

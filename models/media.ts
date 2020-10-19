@@ -82,3 +82,27 @@ export class SearchMediaItem {
     this.image = image;
   }
 }
+
+export type MediaDownloadItemParams = {
+  id: string;
+  title: string;
+  text: string | null;
+  image: ImageRef;
+  status: string | null;
+};
+
+export class MediaDownloadItem {
+  id: string;
+  title: string;
+  text: string | null;
+  image: ImageRef;
+  status: string | null;
+
+  constructor({ id, title, text, image, status }: MediaDownloadItemParams) {
+    this.id = id;
+    this.title = title;
+    this.text = text;
+    this.image = image;
+    this.status = status;
+  }
+}

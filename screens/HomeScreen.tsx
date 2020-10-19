@@ -1,4 +1,4 @@
-import React, { FC, useLayoutEffect } from "react";
+import React, { FC, useLayoutEffect, useCallback } from "react";
 import { StyleSheet, View, ImageBackground, Image } from "react-native";
 
 import data from "../data/home";
@@ -23,13 +23,13 @@ type HomeScreenProps = {
 };
 
 const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
-  const profileHandler = () => {
+  const profileHandler = useCallback(() => {
     navigation.navigate("More");
-  };
+  }, [navigation]);
 
-  const headerLinkHandler = (val: string) => {
+  const headerLinkHandler = useCallback((val: string) => {
     console.log(`Link: ${val}`);
-  };
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -44,7 +44,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
       headerLeft: () => <HeaderMenuButton navigation={navigation} />,
       headerRight: () => <ProfileButton onPress={profileHandler} />
     });
-  }, [navigation]);
+  }, [navigation, profileHandler, headerLinkHandler]);
 
   const itemHandler = (id: number) => {
     console.log(`Video`);

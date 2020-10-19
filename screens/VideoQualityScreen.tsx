@@ -2,44 +2,30 @@ import React, { FC, useLayoutEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { useHeaderHeight } from "@react-navigation/stack";
 
-import data from "../data/settings";
+import data from "../data/video-quality";
 
 import HeaderGradient from "../components/HeaderGradient";
 import ControlsList from "../components/ControlsList";
 
-type SettingsScreenProps = {
+type VideoQualityScreenProps = {
   navigation: any;
 };
 
-const SettingsScreen: FC<SettingsScreenProps> = ({ navigation }) => {
+const VideoQualityScreen: FC<VideoQualityScreenProps> = ({ navigation }) => {
   const [items, setItems] = useState(data.items);
 
   useLayoutEffect(() => {
-    navigation.setOptions({ headerTitle: "App Settings" });
+    navigation.setOptions({ headerTitle: "Video Quality" });
   }, [navigation]);
 
   const pressHandler = (item: any) => {
-    switch (item.type) {
-      case "Route":
-        navigation.navigate(item.route);
-        break;
-      case "Button":
-        console.log("Button:", item.id);
-        break;
-      case "Link":
-        console.log("Link", item.uri);
-        break;
-      default:
-        break;
-    }
-  };
-
-  const changeHandler = (item: any, val: any) => {
     const newItems = items.map((oitem) => {
-      return oitem.id !== item.id ? oitem : { ...oitem, value: val };
+      return { ...oitem, value: !oitem.value };
     });
     setItems(newItems);
   };
+
+  const changeHandler = (_: any, _1: any) => {};
 
   return (
     <View style={styles.screen}>
@@ -66,4 +52,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SettingsScreen;
+export default VideoQualityScreen;

@@ -1,3 +1,8 @@
+// Profiles
+const avatarYellow = require("../assets/user/avatar_yellow.png");
+const avatarBlue = require("../assets/user/avatar_blue.png");
+const addProfileImage = require("../assets/user/add_profile.png");
+
 // Large
 const addamsFamilyBG = require("../assets/media/adams_family_bg.png");
 const addamsFamilyTitleImage = require("../assets/media/adams_family_title.png");
@@ -21,6 +26,9 @@ const redDwarf = require("../assets/media/red_dwarf.png");
 const rickAndMorty = require("../assets/media/rick_and_morty.png");
 
 export {
+  avatarYellow,
+  avatarBlue,
+  addProfileImage,
   addamsFamilyBG,
   addamsFamilyTitleImage,
   blacksBooks,

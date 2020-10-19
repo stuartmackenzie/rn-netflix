@@ -2,41 +2,39 @@ import React, { FC, useLayoutEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { useHeaderHeight } from "@react-navigation/stack";
 
-import data from "../data/settings";
+import data from "../data/data-usage";
 
 import HeaderGradient from "../components/HeaderGradient";
 import ControlsList from "../components/ControlsList";
 
-type SettingsScreenProps = {
+type DataUsageScreenProps = {
   navigation: any;
 };
 
-const SettingsScreen: FC<SettingsScreenProps> = ({ navigation }) => {
+const DataUsageScreen: FC<DataUsageScreenProps> = ({ navigation }) => {
   const [items, setItems] = useState(data.items);
 
   useLayoutEffect(() => {
-    navigation.setOptions({ headerTitle: "App Settings" });
+    navigation.setOptions({ headerTitle: "Cellular Data Usage " });
   }, [navigation]);
 
   const pressHandler = (item: any) => {
-    switch (item.type) {
-      case "Route":
-        navigation.navigate(item.route);
-        break;
-      case "Button":
-        console.log("Button:", item.id);
-        break;
-      case "Link":
-        console.log("Link", item.uri);
-        break;
-      default:
-        break;
-    }
+    const firstItem = items[0];
+
+    // If Automatic is on, pressing is not enabled
+    if (firstItem.value) return;
+
+    const newItems = items.map((oitem) => {
+      if (oitem.type !== "Option") return oitem;
+      return { ...oitem, value: oitem.id === item.id };
+    });
+    setItems(newItems);
   };
 
-  const changeHandler = (item: any, val: any) => {
+  const changeHandler = (_: any, val: any) => {
     const newItems = items.map((oitem) => {
-      return oitem.id !== item.id ? oitem : { ...oitem, value: val };
+      if (oitem.type === "Switch") return { ...oitem, value: val };
+      return { ...oitem, enabled: !val };
     });
     setItems(newItems);
   };
@@ -66,4 +64,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SettingsScreen;
+export default DataUsageScreen;

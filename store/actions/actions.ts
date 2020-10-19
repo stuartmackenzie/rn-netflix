@@ -1,0 +1,8 @@
+// Auth
+export const SET_USER = "SET_USER";
+export const CLEAR_USER = "CLEAR_USER";
+
+// Settings
+export const SET_VIDEO_PLAYBACK_SETTINGS = "SET_VIDEO_PLAYBACK_SETTINGS";
+export const SET_DOWNLOAD_SETTINGS = "SET_DOWNLOAD_SETTINGS";
+export const RESET_SETTINGS = "RESET_SETTINGS";

@@ -1,11 +1,11 @@
-import React, { FC, useLayoutEffect } from "react";
+import React, { FC, useLayoutEffect, useCallback } from "react";
 import { StyleSheet, View, ScrollView, Dimensions } from "react-native";
 import { useHeaderHeight } from "@react-navigation/stack";
 
 import data from "../data/laughs";
 
-import Text from "../components/UI/Text";
 import HeaderMenuButton from "../components/HeaderMenuButton";
+import ProfileButton from "../components/ProfileButton";
 import HeaderGradient from "../components/HeaderGradient";
 import ClipItem from "../components/ClipItem";
 
@@ -16,12 +16,17 @@ type LaughsScreenProps = {
 };
 
 const LaughsScreen: FC<LaughsScreenProps> = ({ navigation }) => {
+  const profileHandler = useCallback(() => {
+    navigation.navigate("More");
+  }, [navigation]);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: null,
-      headerLeft: () => <HeaderMenuButton navigation={navigation} />
+      headerLeft: () => <HeaderMenuButton navigation={navigation} />,
+      headerRight: () => <ProfileButton onPress={profileHandler} />
     });
-  }, [navigation]);
+  }, [navigation, profileHandler]);
 
   const itemEls = items.map((item) => (
     <ClipItem key={item.id.toString()} style={styles.item} clip={item} />

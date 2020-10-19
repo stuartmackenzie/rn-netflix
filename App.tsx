@@ -1,10 +1,19 @@
-import React from 'react';
-import { StyleSheet, View, SafeAreaView } from 'react-native';
+import React from "react";
+import { StyleSheet, View } from "react-native";
 import { AppLoading } from "expo";
 import { useFonts } from "expo-font";
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from "expo-status-bar";
+
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import thunkMiddleware from "redux-thunk";
+
+import reducers from "./store/reducers";
 
 import Main from "./navigation/Main";
+
+const rootReducer = combineReducers(reducers);
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
 export default () => {
   let [fontsLoaded] = useFonts({
@@ -19,16 +28,18 @@ export default () => {
   }
 
   return (
-    <View style={styles.container}>
-      <Main />
-      <StatusBar style="auto" />
-    </View>   
+    <Provider store={store}>
+      <View style={styles.container}>
+        <Main />
+        <StatusBar style="auto" />
+      </View>
+    </Provider>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'red'
-  },
+    backgroundColor: "red"
+  }
 });
