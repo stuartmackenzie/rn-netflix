@@ -106,3 +106,5 @@ dist
 .expo/
 
 .DS_Store
+
+constants/env.ts

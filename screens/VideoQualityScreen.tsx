@@ -1,8 +1,9 @@
-import React, { FC, useLayoutEffect, useState } from "react";
+import React, { FC, useLayoutEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { StyleSheet, View } from "react-native";
 import { useHeaderHeight } from "@react-navigation/stack";
 
-import data from "../data/video-quality";
+import { setVideoQuality } from "../store/actions";
 
 import HeaderGradient from "../components/HeaderGradient";
 import ControlsList from "../components/ControlsList";
@@ -12,30 +13,22 @@ type VideoQualityScreenProps = {
 };
 
 const VideoQualityScreen: FC<VideoQualityScreenProps> = ({ navigation }) => {
-  const [items, setItems] = useState(data.items);
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.settings.videoQualityItems);
 
   useLayoutEffect(() => {
     navigation.setOptions({ headerTitle: "Video Quality" });
   }, [navigation]);
 
   const pressHandler = (item: any) => {
-    const newItems = items.map((oitem) => {
-      return { ...oitem, value: !oitem.value };
-    });
-    setItems(newItems);
+    dispatch(setVideoQuality(item.id));
   };
-
-  const changeHandler = (_: any, _1: any) => {};
 
   return (
     <View style={styles.screen}>
       <HeaderGradient />
       <View style={{ ...styles.container, marginTop: useHeaderHeight() }}>
-        <ControlsList
-          items={items}
-          onPress={pressHandler}
-          onChange={changeHandler}
-        />
+        <ControlsList items={items} onPress={pressHandler} />
       </View>
     </View>
   );

@@ -1,8 +1,9 @@
-import React, { FC, useLayoutEffect, useState } from "react";
+import React, { FC, useLayoutEffect, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { StyleSheet, View } from "react-native";
 import { useHeaderHeight } from "@react-navigation/stack";
 
-import data from "../data/settings";
+import { setSetting, clearStorage } from "../store/actions";
 
 import HeaderGradient from "../components/HeaderGradient";
 import ControlsList from "../components/ControlsList";
@@ -12,33 +13,37 @@ type SettingsScreenProps = {
 };
 
 const SettingsScreen: FC<SettingsScreenProps> = ({ navigation }) => {
-  const [items, setItems] = useState(data.items);
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.settings.settingsItems);
 
   useLayoutEffect(() => {
     navigation.setOptions({ headerTitle: "App Settings" });
   }, [navigation]);
 
-  const pressHandler = (item: any) => {
-    switch (item.type) {
-      case "Route":
-        navigation.navigate(item.route);
-        break;
-      case "Button":
-        console.log("Button:", item.id);
-        break;
-      case "Link":
-        console.log("Link", item.uri);
-        break;
-      default:
-        break;
-    }
-  };
+  const pressHandler = useCallback(
+    (item: any) => {
+      switch (item.type) {
+        case "Route":
+          navigation.navigate(item.route);
+          break;
+        case "Button":
+          console.log("Button:", item.id);
+          if (item.id === "delete-all-downloads") {
+            dispatch(clearStorage());
+          }
+          break;
+        case "Link":
+          console.log("Link", item.uri);
+          break;
+        default:
+          break;
+      }
+    },
+    [navigation]
+  );
 
   const changeHandler = (item: any, val: any) => {
-    const newItems = items.map((oitem) => {
-      return oitem.id !== item.id ? oitem : { ...oitem, value: val };
-    });
-    setItems(newItems);
+    dispatch(setSetting(item.id, val));
   };
 
   return (

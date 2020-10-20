@@ -20,6 +20,9 @@ type ControlsListProps = {
 };
 
 const ControlsList: FC<ControlsListProps> = ({ items, onPress, onChange }) => {
+  onPress = onPress || (() => {});
+  onChange = onChange || (() => {});
+
   // const models = items.map(item => new ListControl(item));
   const headerIndicies = items.reduce((acc, cur, idx) => {
     if (cur.type === "Header") acc.push(idx);

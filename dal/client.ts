@@ -1,4 +1,4 @@
-const BASE_URL = "https://rn-shop-f8566.firebaseio.com";
+import { DB_URL } from "../constants/env";
 
 type FetchParams = {
   url: string;
@@ -26,7 +26,7 @@ export const fetchData = ({
   return new Promise(async (resolve, reject) => {
     if (!url) return reject(new Error("Invalid url"));
 
-    baseUrl = baseUrl ?? BASE_URL;
+    baseUrl = baseUrl ?? DB_URL;
 
     let uri = `${baseUrl}${url}`;
 

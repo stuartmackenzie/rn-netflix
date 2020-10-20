@@ -1,8 +1,12 @@
-import React, { FC, useLayoutEffect, useState } from "react";
+import React, { FC, useLayoutEffect, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { StyleSheet, View } from "react-native";
 import { useHeaderHeight } from "@react-navigation/stack";
 
-import data from "../data/data-usage";
+import {
+  setCellularDataUsageAuto,
+  setCellularDataUsageMode
+} from "../store/actions";
 
 import HeaderGradient from "../components/HeaderGradient";
 import ControlsList from "../components/ControlsList";
@@ -12,32 +16,26 @@ type DataUsageScreenProps = {
 };
 
 const DataUsageScreen: FC<DataUsageScreenProps> = ({ navigation }) => {
-  const [items, setItems] = useState(data.items);
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.settings.dataUsageItems);
+  const videoPlayback = useSelector((state) => state.settings.videoPlayback);
 
   useLayoutEffect(() => {
     navigation.setOptions({ headerTitle: "Cellular Data Usage " });
   }, [navigation]);
 
-  const pressHandler = (item: any) => {
-    const firstItem = items[0];
-
-    // If Automatic is on, pressing is not enabled
-    if (firstItem.value) return;
-
-    const newItems = items.map((oitem) => {
-      if (oitem.type !== "Option") return oitem;
-      return { ...oitem, value: oitem.id === item.id };
-    });
-    setItems(newItems);
+  const changeHandler = (_: any, val: boolean) => {
+    dispatch(setCellularDataUsageAuto(val));
   };
 
-  const changeHandler = (_: any, val: any) => {
-    const newItems = items.map((oitem) => {
-      if (oitem.type === "Switch") return { ...oitem, value: val };
-      return { ...oitem, enabled: !val };
-    });
-    setItems(newItems);
-  };
+  const pressHandler = useCallback(
+    (item: any) => {
+      // If Automatic is on, pressing is not enabled (also protected in store)
+      if (videoPlayback.cellularDataUsage.auto) return;
+      dispatch(setCellularDataUsageMode(item.id));
+    },
+    [videoPlayback]
+  );
 
   return (
     <View style={styles.screen}>
