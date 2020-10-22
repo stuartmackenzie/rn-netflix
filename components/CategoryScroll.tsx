@@ -8,7 +8,7 @@ import CategoryItem from "./CategoryItem";
 
 type CategoryScrollProps = {
   category: any;
-  onPress?: (id: number) => void;
+  onPress?: (videoId: number, videoTitle: string) => void;
 };
 
 const CategoryScroll: FC<CategoryScrollProps> = ({ category, onPress }) => {

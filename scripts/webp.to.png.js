@@ -3,8 +3,8 @@ const webp = require("webp-converter");
 
 webp.grant_permission();
 
-const src = path.resolve(__dirname, "..", "assets", "media", "top_gear.webp");
-const dest = path.join(__dirname, "..", "assets", "media", "top_gear.png");
+const src = path.resolve(__dirname, "..", "design", "disenchantment.webp");
+const dest = path.join(__dirname, "..", "design", "disenchantment.png");
 
 //dwebp(input,output,option)
 const result = webp.dwebp(src, dest, "-o");

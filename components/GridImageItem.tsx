@@ -5,7 +5,7 @@ import { GridItem } from "../models/view";
 
 type GridImageItemProps = {
   item: GridItem;
-  onPress?: (id: number) => void;
+  onPress?: (id: number | string) => void;
 };
 
 const GridImageItem: FC<GridImageItemProps> = ({ item, onPress }) => {

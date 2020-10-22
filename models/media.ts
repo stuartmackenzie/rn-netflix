@@ -106,3 +106,25 @@ export class MediaDownloadItem {
     this.status = status;
   }
 }
+
+export interface IEpisode {
+  id: string;
+  ep: number;
+  season: number;
+  image: ImageRef;
+  imageUri: string;
+  progress: number;
+  videoUri: string;
+  title: string;
+  synopsis: string;
+  duration: number;
+  imagePath: string;
+}
+
+export interface ITrailer {
+  id: string;
+  image: ImageRef;
+  imageUri: string;
+  videoUri: string;
+  title: string;
+}

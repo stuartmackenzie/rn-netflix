@@ -7,7 +7,7 @@ import {
   resetSettings
 } from "./settings";
 
-import { getStorageInfo, clearStorage } from "./device";
+import { loadFileSystemInfo, getStorageInfo, clearStorage } from "./device";
 
 export {
   loadUser,
@@ -19,6 +19,7 @@ export {
   setCellularDataUsageAuto,
   setCellularDataUsageMode,
   resetSettings,
+  loadFileSystemInfo,
   getStorageInfo,
   clearStorage
 };

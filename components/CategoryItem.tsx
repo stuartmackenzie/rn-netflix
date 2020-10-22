@@ -9,17 +9,17 @@ import {
 
 type CategoryItemProps = {
   id: number;
-  title: string;
+  title?: string;
   image: ImageProps | Readonly<ImageProps>;
-  onPress?: (id: number) => void;
+  onPress?: (videoId: number, videoTitle: string) => void;
 };
 
-const CategoryItem: FC<CategoryItemProps> = ({ id, image, onPress }) => {
+const CategoryItem: FC<CategoryItemProps> = ({ id, image, title, onPress }) => {
   return (
     <TouchableOpacity
       style={styles.view}
       activeOpacity={0.6}
-      onPress={() => onPress(id)}
+      onPress={() => onPress(id, title)}
       delayPressIn={20}
     >
       <View style={styles.imageContainer}>

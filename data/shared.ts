@@ -1,3 +1,6 @@
+// Shared
+const nSeries = require("../assets/shared/nseries.png");
+
 // Profiles
 const avatarYellow = require("../assets/user/avatar_yellow.png");
 const avatarBlue = require("../assets/user/avatar_blue.png");
@@ -26,6 +29,7 @@ const redDwarf = require("../assets/media/red_dwarf.png");
 const rickAndMorty = require("../assets/media/rick_and_morty.png");
 
 export {
+  nSeries,
   avatarYellow,
   avatarBlue,
   addProfileImage,

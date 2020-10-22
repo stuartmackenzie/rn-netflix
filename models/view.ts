@@ -44,3 +44,9 @@ export class ListControl {
     this.type = type;
   }
 }
+
+export interface ITab {
+  id: string;
+  text: string;
+  selected: boolean;
+}

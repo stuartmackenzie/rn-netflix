@@ -10,6 +10,7 @@ import SettingsScreen from "../screens/SettingsScreen";
 import HelpScreen from "../screens/HelpScreen";
 import DataUsageScreen from "../screens/DataUsageScreen";
 import VideoQualityScreen from "../screens/VideoQualityScreen";
+import VideoDetailScreen from "../screens/VideoDetailScreen";
 
 const Stack = createStackNavigator();
 
@@ -33,6 +34,7 @@ const Home: FC<HomeProps> = () => {
       <Stack.Screen name="Help" component={HelpScreen} />
       <Stack.Screen name="Data Usage" component={DataUsageScreen} />
       <Stack.Screen name="Video Quality" component={VideoQualityScreen} />
+      <Stack.Screen name="Video Detail" component={VideoDetailScreen} />
     </Stack.Navigator>
   );
 };

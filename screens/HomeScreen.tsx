@@ -46,8 +46,8 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
     });
   }, [navigation, profileHandler, headerLinkHandler]);
 
-  const itemHandler = (id: number) => {
-    console.log(`Video`);
+  const itemHandler = (videoId: number, videoTitle: string) => {
+    navigation.navigate("Video Detail", { videoId, videoTitle });
   };
 
   const actionHandler = (id: string) => {
